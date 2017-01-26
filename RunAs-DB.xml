@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <Domains>
+    <Obagi FQDNDomain="Valeant.Corp.Vrx" SMTPDomain="obagi.com" DefaultLicense="E2" Password="" />
+    <Valeant FQDNDomain="Valeant.Corp.Vrx" SMTPDomain="valeant.com" DefaultLicense="E2" Password=""></Valeant>
+    <Solta FQDNDomain="Valeant.Corp.VRX" SMTPDomain="solta.com" DefaultLicense="E2" Password="" />
+    <Blamericas FQDNDomain="blamericas.bausch.com" SMTPDomain="bausch.com" DefaultLicense="E2" Password="" />
+    <Dendreon FQDNDomain="corp.dendreon.com" SMTPDomain="dendreon.com" DefaultLicense="E3" Password="" />
+    <Salix FQDNDomain="Valeant.Corp.Vrx" SMTPDomain="salix.com" DefaultLicense="E3" Password="" />
+  </Domains>
+</Database>

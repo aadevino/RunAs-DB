@@ -1,0 +1,110 @@
+
+Function Start-Session
+{
+     try
+     {
+
+       $user = $RunAsDB.Database.Domains.$selectedDomain.Username
+       $password = ($RunAsDB.Database.Domains.$selectedDomain.Password | ConvertTo-SecureString)
+   
+ 
+       $credentials = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $user, $password
+
+       Start-Process cmd -Credential $credentials -ArgumentList "dsa.msc /domain=$($RunAsDB.Database.Domains.$selectedDomain.FQDNDomain)"
+ 
+     }
+     catch
+     {
+       do
+       {
+       $i++
+
+         Update-Credentials
+     
+       } until ($i -eq 3) 
+   }
+ }
+
+  Function Update-Credentials
+  {
+  
+  Write-Host "Error with Credentials. Requesting new credentials."
+ 
+  $updatecreds = Get-Credential
+
+  Write-Host "Updating database credentials."
+
+
+  $updatepassword = ConvertFrom-SecureString $updatecreds.Password
+ 
+  Start-Sleep -Seconds 2
+
+  $RunAsDB.Database.Domains.$selectedDomain.Password = "$updatepassword"
+  $RunAsDB.Database.Domains.$selectedDomain.Username = $updatecreds.UserName
+
+  #$RunAsDB | Export-Clixml "$env:APPDATA\ADUC-RunAs\RunAs-DB.xml"
+
+  $RunAsDB.Save("$env:APPDATA\ADUC-RunAs\RunAs-DB.xml")
+
+  if ($i -eq 3)
+  {
+
+    write-host -ForegroundColor Red "Error with credentials... Exiting."
+
+    start-Sleep -Seconds 3
+
+
+  }
+ 
+
+  Start-Session
+ 
+  }
+
+
+If ((Test-Path "$env:APPDATA\ADUC-RunAs\RunAs-DB.xml") -eq $false )
+{
+
+  New-Item -ItemType Directory "$env:APPDATA\ADUC-RunAs"
+   
+  $fromfile = "https://one.westmonroepartners.com/Collab/Practices/PS/eucuc/Shared%20Documents/Projects/Internal/RunAs-DB.xml"
+  $tofile = "$env:APPDATA\ADUC-RunAs\RunAs-DB.xml"
+  
+  try 
+  {
+    $webclient = New-Object System.Net.WebClient
+    $webclient.UseDefaultCredentials = $true
+    $webclient.DownloadFile($fromfile, $tofile)
+  }
+  catch
+  {
+    Write-Host "Unable to download DB template"
+    $webcred = Get-Credential -Message "Please enter your WMP Credentials"
+    $webclient = New-Object System.Net.WebClient
+    $webclient.Credentials = $webcred
+    $webclient.DownloadFile($fromfile, $tofile)
+  }
+  
+
+}
+
+$RunAsDB = [Xml] (Get-Content "$env:APPDATA\ADUC-RunAs\RunAs-DB.xml")
+  
+$selectedDomain = $RunAsDB.Database.Domains.ChildNodes.domainname | Get-Unique | Out-GridView -PassThru -Title "Please select the domain you wish to connect to:"
+  
+ if ($RunAsDB.Database.Domains.$selectedDomain.Password -ne "")
+ 
+ {
+ 
+  Start-Session
+ 
+
+ }
+  else
+  {
+
+  Update-Credentials
+  A
+  }
+
+ 
