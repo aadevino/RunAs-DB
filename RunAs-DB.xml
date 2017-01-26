@@ -4,8 +4,8 @@
     <Obagi FQDNDomain="Valeant.Corp.Vrx" SMTPDomain="obagi.com" DefaultLicense="E2" Password="" Username="" NetBios="valeant" />
     <Valeant FQDNDomain="Valeant.Corp.Vrx" SMTPDomain="valeant.com" DefaultLicense="E2" Password="" NetBios="valeant" Username=""></Valeant>
     <Solta FQDNDomain="Valeant.Corp.VRX" SMTPDomain="solta.com" DefaultLicense="E2" Password="" NetBios="valeant" Username="" />
-    <Blamericas FQDNDomain="blamericas.bausch.com" SMTPDomain="bausch.com" DefaultLicense="E2" Password="" Username="" NetBios="" />
-    <Dendreon FQDNDomain="corp.dendreon.com" SMTPDomain="dendreon.com" DefaultLicense="E3" Password="" Username="" NetBios="" />
-    <Salix FQDNDomain="Valeant.Corp.Vrx" SMTPDomain="salix.com" DefaultLicense="E3" Password="" Username="" NetBios="" />
+    <Blamericas FQDNDomain="blamericas.bausch.com" SMTPDomain="bausch.com" DefaultLicense="E2" Password="" NetBios="blamericas" Username=""></Blamericas>
+    <Dendreon FQDNDomain="corp.dendreon.com" SMTPDomain="dendreon.com" DefaultLicense="E3" Password="" NetBios="" Username="" />
+    <Salix FQDNDomain="Valeant.Corp.Vrx" SMTPDomain="salix.com" DefaultLicense="E3" Password="" NetBios="" Username="" />
   </Domains>
 </Database>
